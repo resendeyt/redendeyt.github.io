@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Releases</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #0F0417; /* Cor de fundo personalizada */
+            color: #ffffff; /* Cor do texto */
+        }
+
+        h1 {
+            color: #942FDD; /* Cor azul do GitHub */
+        }
+
+        h2 {
+            color: #CA81FF; /* Cor azul do GitHub para o segundo nível de cabeçalho */
+            border-bottom: 1px solid #3D004B; /* Linha horizontal */
+            padding-bottom: 5px; /* Espaçamento abaixo do subcabeçalho */
+            margin-bottom: 10px; /* Margem abaixo do subcabeçalho */
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 20px;
+            border: 1px solid #3D004B; /* Cor da borda do GitHub */
+            padding: 15px;
+            border-radius: 6px;
+            box-shadow: 0 1px 4px rgba(27, 31, 35, 0.1);
+            white-space: pre-line; /* Adiciona quebras de linha */
+            background-color: #170025; /* Cor de fundo do item da lista */
+        }
+
+        strong {
+            color: #B003D6; /* Cor azul do GitHub */
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<h1>MDT ChangerLogger Releases</h1>
+<ul id="releasesList"></ul>
+
+<script>
+    // Repositório e URL da API de releases
+    const repoOwner = 'RuanDavid7';
+    const repoName = 'MDT_Changerlogger';
+    const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/releases`;
+
+    // Função para interpretar Markdown básico
+    function parseMarkdown(text) {
+        return text
+            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // **bold**
+            .replace(/## (.*?)(\n|$)/g, '<h2>$1</h2>') // ## segundo nível de cabeçalho
+            .replace(/# (.*?)(\n|$)/g, '<span style="color: #B003D6;">$1</span>$2'); // # texto
+    }
+
+    // Obter releases da API do GitHub
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(releases => {
+            const releasesList = document.getElementById('releasesList');
+
+            // Iterar sobre as releases e adicionar à lista
+            releases.forEach(release => {
+                const listItem = document.createElement('li');
+                const parsedName = parseMarkdown(release.name);
+                const parsedBody = parseMarkdown(release.body);
+                listItem.innerHTML = `<strong>${parsedName}</strong>: ${parsedBody}`;
+                releasesList.appendChild(listItem);
+            });
+        })
+        .catch(error => {
+            console.error('Erro ao obter releases:', error);
+        });
+</script>
+
+</body>
+</html>
