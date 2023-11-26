@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruand</title>
+    <style>
+        body {
+            background-color: #000;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        h1 {
+            color: #fff;
+            font-family: 'Courier New', monospace;
+            font-size: 5em;
+            text-align: center;
+            text-transform: uppercase;
+            cursor: pointer;
+            animation: glitch 1s infinite;
+        }
+
+        @keyframes glitch {
+            2%, 64% {
+                transform: translate(2px, 0) skew(0deg);
+            }
+            4%, 60% {
+                transform: translate(-2px, 0) skew(0deg);
+            }
+            62% {
+                transform: translate(0, 0) skew(5deg);
+            }
+        }
+
+        h1:hover {
+            color: #00f; /* Altere para a cor desejada ao passar o mouse */
+        }
+    </style>
+</head>
+<body>
+    <h1 onclick="window.location.href='https://RuanDavid7.github.io'">RUAND</h1>
+</body>
+</html>
