@@ -71,10 +71,15 @@
         // Função para interpretar Markdown básico
         function parseMarkdown(text) {
             // Torna os links clicáveis
-            return text.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank">$1</a>')
-                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // **bold**
+            text = makeLinksClickable(text);
+            return text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // **bold**
                 .replace(/## (.*?)(\n|$)/g, '<h2>$1</h2>') // ## segundo nível de cabeçalho
                 .replace(/# (.*?)(\n|$)/g, '<span style="color: #B003D6;">$1</span>$2'); // # texto
+        }
+
+        // Função para tornar os links clicáveis
+        function makeLinksClickable(text) {
+            return text.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>');
         }
 
         // Obter releases da API do GitHub
